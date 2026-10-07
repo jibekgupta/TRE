@@ -1,0 +1,33 @@
+@startuml
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor White
+  BorderColor Black
+}
+actor "Clinical coordinator\nDr. Amina Kamau" as Coord
+actor "Researcher\nDr. Ezer Kang" as Res
+actor "Translation service\n<<system>>" as Trans
+actor "Data custodian\nDaniel Okoro" as Cust
+actor "Notification service\n<<system>>" as Note
+
+rectangle "Global Health TRE" {
+  usecase "UC-1 Upload dataset\nPP-2" as UC1
+  usecase "UC-2 Check dataset\nPP-2" as UC2
+  usecase "UC-3 Document local term\nPP-3" as UC3
+  usecase "UC-4 Prepare analysis file\nPP-1" as UC4
+  usecase "UC-5 Translate study text\nPP-5" as UC5
+  usecase "UC-6 Request dataset access\nPP-4" as UC6
+  usecase "UC-7 Review access request\nPP-4" as UC7
+}
+Coord -- UC1
+Coord -- UC3
+Res -- UC4
+Res -- UC5
+Res -- UC6
+Trans -- UC5
+Cust -- UC7
+Note -- UC7
+UC1 ..> UC2 : <<include>>
+UC3 ..> UC1 : <<extend>>
+@enduml
